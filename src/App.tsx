@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+
+  //criando o estado, onde sempre é um array
+  const [contador, setContador] = useState(0);
+  
+  function funcaoContador(tipo: 'aumentar' | 'diminuir') {
+    if(tipo === 'aumentar') setContador(contador + 1);
+    if(tipo === 'diminuir' && contador > 0) setContador(contador - 1);
+    
+  }
+
+  //efeitos colaterais, função de callback, array de dependencias
+  useEffect(()=>{
+    if(contador === 10) alert("clicou 10 vezes, vc é o bixão heim");
+  }, [contador]);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Contador de vezes do Yago</h1>
+     <p>{contador}</p>
+     {/* ()=>funcaoContador('aumentar') programação funcional evita q o codigo execute sempre q mudar o estado*/}
+     <button onClick={()=>funcaoContador('aumentar')}>Aumentar</button>
+     <button onClick={()=>funcaoContador('diminuir')}>Diminuir</button>
     </div>
   );
 }
