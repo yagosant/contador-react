@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
 
   //criando o estado, onde sempre é um array
   const [contador, setContador] = useState(0);
+  const [input, setInput] = useState({
+    input1:'',
+    input2:''
+  });
   
   function funcaoContador(tipo: 'aumentar' | 'diminuir') {
     if(tipo === 'aumentar') setContador(contador + 1);
     if(tipo === 'diminuir' && contador > 0) setContador(contador - 1);
+    
+  }
+
+  function handleInput(event:ChangeEvent, key: string) {
+    //... values - spread, traz os valores q já existiam antes 
+    setInput(values => ({...values, [key]:(event.target as HTMLInputElement).value}));
     
   }
 
@@ -20,7 +30,13 @@ function App() {
 
   return (
     <div className="App">
+
      <h1>Contador de vezes do Yago</h1>
+     <input type="text"  onChange={(event) => handleInput(event, 'input1')} value = {input.input1}/>
+     <input type="text"  onChange={(event) => handleInput(event, 'input2')} value = {input.input2}/>
+      <p>{input.input1}</p>
+
+
      <p>{contador}</p>
      {/* ()=>funcaoContador('aumentar') programação funcional evita q o codigo execute sempre q mudar o estado*/}
      <button onClick={()=>funcaoContador('aumentar')}>Aumentar</button>
