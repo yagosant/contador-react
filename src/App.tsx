@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
     input1:'',
     input2:''
   });
+
+  //const inputRef = useRef(0);
   
   function funcaoContador(tipo: 'aumentar' | 'diminuir') {
     if(tipo === 'aumentar') setContador(contador + 1);
@@ -25,6 +27,7 @@ function App() {
   //efeitos colaterais, função de callback, array de dependencias
   useEffect(()=>{
     if(contador === 10) alert("clicou 10 vezes, vc é o bixão heim");
+   // if(input.input1.length === 4) inputRef.current?.focus();
   }, [contador]);
 
 
@@ -33,8 +36,9 @@ function App() {
 
      <h1>Contador de vezes do Yago</h1>
      <input type="text"  onChange={(event) => handleInput(event, 'input1')} value = {input.input1}/>
-     <input type="text"  onChange={(event) => handleInput(event, 'input2')} value = {input.input2}/>
+     <input type="text"  onChange={(event) => handleInput(event, 'input2')} value = {input.input2} />
       <p>{input.input1}</p>
+      <p>{input.input2}</p>
 
 
      <p>{contador}</p>
